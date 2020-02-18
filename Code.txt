@@ -1,0 +1,89 @@
+
+char c;
+
+
+
+
+function void error(){
+    //puts
+    endops();
+}
+
+
+
+
+function num expression(){
+    num resultado;
+    num aux;
+    char op;
+    op := '+';
+    if (c = '+' || c = '-'){
+        op := c;
+        input(c);
+    }
+    resultado := termino();
+    if (op = '-') resultado = neg(resultado);
+    while (c = '+' || c = '-'){
+        op := c;
+        input(c);
+        aux = termino();
+        if(op = '+'){
+            resultado :+= aux;
+            break;
+        }elsif(op = '-') {
+            resultado :-= aux;
+            break;
+        }
+    }
+}
+
+
+function num factor{
+    num resultado;
+    if (c = '('){
+        input(c);
+        resultado := expression;
+        if (c = ')'){input(c)}
+        else{error()}
+        return resultado;   
+    }else{
+        return numero();
+    }
+}
+
+function num termino(){
+    num resultado;
+    num aux;
+    char op;
+    resultado := factor();
+    while (c = '*' || c = '/'){
+        op := c;
+        input(c);
+        aux := factor(); 
+        if(op = '*'){
+            resultado :*= aux;
+            break;
+        }elsif(op = '/') {
+            resultado :/= aux;
+            break;
+        }
+    }
+    return resultado;
+
+
+}
+main(){    
+    num resultado;
+    input(c);
+    while(c != '\n' ){
+        resultado := expression();
+        if(c = '\n'){
+            print(resultado);
+            input(c);
+        }else error();
+
+    }
+
+
+
+}
