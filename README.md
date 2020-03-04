@@ -1,9 +1,3 @@
----
-noteId: "980e35a0525411ea9e7ffbecb2872bd0"
-tags: []
-
----
-
 # Declaración del lenguaje D
 Documento en el que se establecen las bases del lenguaje a desarrollar durante el curso de la asignatura Procesadores del Lenguaje.
 
@@ -20,7 +14,7 @@ No se permitirá la asignación a variables de tipos de datos distintos al de la
 ### Tipos de variables
 
 * **num**:  Número entero.
-* **num_float**: Número float.
+* **float**: Número float.
 * **bool**: boolean con valor *TRUE* o *FALSE*.
 * **char**: Caracter único
 * **string**: Ristra de caracteres.
@@ -42,11 +36,6 @@ Toda operación debe acabar en punto y coma.
 | '%' | Resto  | a := a % 1; |
 | '=' | Comparación igual que | a = 1; |
 | '!=' | Comparación distinto que  | a != 1; |
-| ':+=' | Suma y asignación | a :+= 1; |
-| ':-=' | Resta y asignación | a :-= 1; |
-| ':*=' | Multiplicación y asignación | a :*= 1; |
-| ':*=' | División y asignación | a :*= 1; |
-| ':%=' | Resto y asignación  | a :%= 1; |
 
 ---
 ## Funciones 
