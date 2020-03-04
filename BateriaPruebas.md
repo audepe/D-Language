@@ -1,8 +1,3 @@
----
-noteId: "be8263a0527c11ea9e7ffbecb2872bd0"
-tags: []
-
----
 # Batería de pruebas
 
 
@@ -42,7 +37,43 @@ while (b == FALSE){
 
 ```
 ### for
-
+```
+  // Funciona  
+  num i;
+  for (i := 0; i < 5; i := i+1) {
+      print(i);
+  }
+  
+  // No funciona
+  for (num i := 0 ;  i < 5; i := i+1) {
+      print(i);
+  }
+  
+  // No funciona
+  num i;
+  for (i = 0; i < 5; i := i+1) {
+      print(i);
+  }
+  
+  // No funciona
+  num i;
+  for (i = 0; i + 5; i := i+1) {
+      print(i);
+  }
+```
 ### if
+```
+// Funciona
+num a := 0;
+if (a = 0){
+    print("Nice");
+}
+
+// No funciona
+num a := 0;
+if (a == 0){
+    print("Nice");
+}
 
 
+``` 
