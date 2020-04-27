@@ -25,6 +25,21 @@
 
 #define DOTCOMA   215
 
+#define NUMID     301
+#define FLOATID   302
+#define CHARID    303
+#define BOOLID    304
+#define ARRAY     305
+
+#define FOR       401
+#define WHILE     402
+#define IF        403
+#define ELSE      404
+#define ELSIF     405
+#define PRINT     406
+#define INPUT     407
+#define BREAK     408     
+#define END       409
 
 int nLine = 1;
 void error(char*);
@@ -35,8 +50,22 @@ letOrDigit                      {letter}|{digit}
 possibleId                      {letter}{letOrDigit|_}* 
 %%
 
+
 ("+"|-)?{digit}+"."{digit}+     {return FLOAT;}
 ("+"|-)?{digit}+                {return NUM;}
+
+"num"                           {return NUMID;}
+"float"                         {return FLOATID;}
+"char"                          {return CHARID;}
+"bool"                          {return BOOLID;}
+"array"                         {return ARRAY;}
+
+"break"                         {return BREAK;}
+"while"                         {return WHILE;}
+"for"                           {return FOR;}
+"if"                            {return IF;}
+"else"                          {return ELSE;}
+
 "TRUE"                          {return BOOLT;}
 "FALSE"                         {return BOOLF;}
 possibleId                      {return IDENTIF;}
