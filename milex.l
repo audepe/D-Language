@@ -30,6 +30,7 @@
 #define CHARID    303
 #define BOOLID    304
 #define ARRAY     305
+#define VOID      306
 
 #define FOR       401
 #define WHILE     402
@@ -40,13 +41,15 @@
 #define INPUT     407
 #define BREAK     408     
 #define END       409
+#define FUNC      410
+#define RETURN    411
 
 int nLine = 1;
 void error(char*);
 %}
 letter                          [a-zA-Z]
 digit                           [0-9]
-letOrDigit                      {letter}|{digit} 
+letOrDigit                      {letter}|{digit}|"_" 
 %%
 
 
@@ -58,21 +61,25 @@ letOrDigit                      {letter}|{digit}
 "char"                          {return CHARID;}
 "bool"                          {return BOOLID;}
 "array"                         {return ARRAY;}
+"void"                          {return VOID;}
 
 "break"                         {return BREAK;}
 "while"                         {return WHILE;}
 "for"                           {return FOR;}
 "if"                            {return IF;}
+"elsif"                         {return ELSIF;}
 "else"                          {return ELSE;}
+"function"                      {return FUNC;}
+"return"                        {return RETURN;}
 
 "TRUE"                          {return BOOLT;}
 "FALSE"                         {return BOOLF;}
-{letter}[{letOrDigit}_]*        {return IDENTIF;}
-"'".+"'"                        {return CHAR;}
+{letter}{letOrDigit}*           {return IDENTIF;}
+"'"(.|\\.)"'"                   {return CHAR;}
 
 ":="                            {return ASIGN;}
 "!="                            {return NOTEQ;}
-"||"                            {return OR;}
+"\|\|"                          {return OR;}
 "&&"                            {return AND;}
 ":+="                           {return SUMASIGN;}
 ":-="                           {return MINASIGN;}
@@ -87,10 +94,11 @@ letOrDigit                      {letter}|{digit}
 "["                             {return OPENCOR;}
 "]"                             {return CLOSCOR;}
 
+
+[\n]                            {nLine++;}
+[ \t]+
+"//".*                          {/*ignore this elements*/}
 [-+*/%]                         {return yytext[0];}
-\n                              {nLine++;}
-[ \t]
-^\/\/.*                           {/*ignore this elements*/}
 .                               {char s[4]; sprintf(s, "'%c'", yytext[0]); error(s);}
 <<EOF>>                         {return 0;}                            
 %%
