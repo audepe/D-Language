@@ -46,13 +46,12 @@ void error(char*);
 %}
 letter                          [a-zA-Z]
 digit                           [0-9]
-letOrDigit                      {letter}|{digit}
-possibleId                      {letter}{letOrDigit|_}* 
+letOrDigit                      {letter}|{digit} 
 %%
 
 
 ("+"|-)?{digit}+"."{digit}+     {return FLOAT;}
-("+"|-)?{digit}+                {return NUM;}
+("+"|-)?{digit}+                {return ENTERO;}
 
 "num"                           {return NUMID;}
 "float"                         {return FLOATID;}
@@ -68,8 +67,8 @@ possibleId                      {letter}{letOrDigit|_}*
 
 "TRUE"                          {return BOOLT;}
 "FALSE"                         {return BOOLF;}
-possibleId                      {return IDENTIF;}
-"'"."'"                         {return CHAR;}
+{letter}[{letOrDigit}_]*        {return IDENTIF;}
+"'".+"'"                        {return CHAR;}
 
 ":="                            {return ASIGN;}
 "!="                            {return NOTEQ;}
@@ -80,7 +79,7 @@ possibleId                      {return IDENTIF;}
 ":*="                           {return MULASIGN;}
 ":/="                           {return DIVASIGN;}
 "="                             {return EQU;}
-
+";"                             {return DOTCOMA;}
 "{"                             {return OPENKEY;}
 "}"                             {return CLOSKEY;}
 "("                             {return OPENPAR;}
@@ -89,10 +88,9 @@ possibleId                      {return IDENTIF;}
 "]"                             {return CLOSCOR;}
 
 [-+*/%]                         {return yytext[0];}
-"-"|"+"|"*"|"/"|"%"             {return yytext[0];}
 \n                              {nLine++;}
-[\t]
-^//.*                           {/*ignore this elements*/}
+[ \t]
+^\/\/.*                           {/*ignore this elements*/}
 .                               {char s[4]; sprintf(s, "'%c'", yytext[0]); error(s);}
 <<EOF>>                         {return 0;}                            
 %%
@@ -103,5 +101,5 @@ int main(int argc, char** argv) {
   return 0;
 }
 void error(char* mens) {
-  printf("Error de tipo lexico: linea %i: %s\n",numlin,mens);
+  printf("Error de tipo lexico: linea %i: %s\n",nLine,mens);
 }
