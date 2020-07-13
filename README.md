@@ -34,7 +34,7 @@ Toda operación debe acabar en punto y coma.
 | '*' | Multiplicación | a := a * 2; |
 | '/' | División | a := a/1; |
 | '%' | Resto  | a := a % 1; |
-| '=' | Comparación igual que | a = 1; |
+| '==' | Comparación igual que | a == 1; |
 | '!=' | Comparación distinto que  | a != 1; |
 
 ---
@@ -95,4 +95,5 @@ El código debe incluir una función de nombre *main()* que será la primera fun
 
 
   
+
 

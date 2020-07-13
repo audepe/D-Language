@@ -1,15 +1,21 @@
-# Makefile basico para no andar repitiendo comandos para generar,
-# compilar y ejecutar. A ampliar para testear y en siguientes fases. 
+compile:
+	$(MAKE) clean
+	mkdir build
+	$(MAKE) bison
+	$(MAKE) flex
+	$(MAKE) gcc
 
-# make milex	[genera] lexico desde milex.l
-# make F=n.x	[genera] y ejecuta lexico sobre n.x; via stdin: make<n.x
+clean:
+	rm -rf d_code ./build &> /dev/null
+	
+bison:
+	bison -v -d -t flex_bison/d_bison.y
+	mv *.tab.* ./build
+	mv *.output ./build
 
-all: milex $(F)
-	./milex $(F)
+flex:
+	flex flex_bison/d_flex.l
+	mv *.yy.c ./build
 
-milex: milex.l
-	flex milex.l
-	gcc -o milex lex.yy.c -lfl
-
-# "No rule to make target" T si no encuentra ni puede crear T.
-# Por supuesto, no regenera milex si no es necesario.
+gcc:
+	gcc -o d_code build/d_bison.tab.c build/lex.yy.c symbol_table/d_symbols.c -lfl -lm
