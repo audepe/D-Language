@@ -1,0 +1,6 @@
+.vscode
+d_code
+./build
+*.tab.*
+*.output
+*.yy.c
